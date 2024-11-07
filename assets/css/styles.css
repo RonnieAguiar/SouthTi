@@ -1,0 +1,502 @@
+@charset "UTF-8";
+
+@font-face {
+    font-style: normal;
+    font-weight: 100;
+    src: url('../fonts/Roboto-Thin.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: italic;
+    font-weight: 100;
+    src: url('../fonts/Roboto-ThinItalic.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/Roboto-Light.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: italic;
+    font-weight: 300;
+    src: url('../fonts/Roboto-LightItalic.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: italic;
+    font-weight: 400;
+    src: url('../fonts/Roboto-Italic.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/Roboto-Medium.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: italic;
+    font-weight: 500;
+    src: url('../fonts/Roboto-MediumItalic.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/Roboto-Bold.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: italic;
+    font-weight: 700;
+    src: url('../fonts/Roboto-BoldItalic.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/Roboto-Black.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+@font-face {
+    font-style: italic;
+    font-weight: 900;
+    src: url('../fonts/Roboto-BlackItalic.ttf') format('truetype');
+    font-family: 'Roboto';
+}
+
+:root,
+[data-theme=light] {
+    --blue: #00b5d3;
+    --backgroud-component: #f2f2f2;
+    --background-page: #e8e8e8;
+    --danger: #e76d6d;
+    --success: #499c67;
+    --font-family: 'Roboto';
+    --font-color: #9b9b9b;
+}
+
+/* Reset Básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+}
+
+/* Configurações Globais do Corpo */
+body,
+html {
+    background-color: var(--blue);
+    height: 100%;
+    color: var(--font-color);
+}
+
+/* Main ocupa o espaço restante */
+main {
+    grid-area: main;
+    flex: 1;
+    background-color: var(--background-page);
+    padding: 0px 20px;
+    overflow-y: auto;
+    /* Scroll para conteúdo longo */
+}
+
+main>section {
+    display: flex;
+    height: 100%;
+}
+
+/* Estilos adicionais para botões */
+button {
+    transition: background-color 0.3s;
+    cursor: pointer;
+    border: 1px solid var(--blue);
+    border-radius: 30px;
+    background-color: var(--backgroud-component);
+    padding: 10px;
+    width: 100%;
+    height: 60px;
+    color: var(--font-color);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: var(--blue);
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Container Principal usando CSS Grid */
+.container {
+    display: grid;
+    /* Coluna fixa para aside e flexível para content */
+    grid-template-rows: 120px 1fr;
+    grid-template-columns: 80px 1fr;
+    /* Navbar no topo, main preenchendo o resto */
+    grid-template-areas:
+        "menu navbar"
+        "menu main";
+    width: 100%;
+    height: 100vh;
+}
+
+/* Menu Lateral (Aside) */
+.menu {
+    display: flex;
+    grid-area: menu;
+    flex-direction: column;
+    align-items: center;
+    z-index: 50;
+    box-shadow: 5px 0 5px rgba(128, 128, 128, 0.2);
+    background-color: var(--backgroud-component);
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 80px;
+}
+
+/* Navbar fixo no topo da coluna Content */
+.navbar {
+    display: flex;
+    grid-area: navbar;
+    align-items: end;
+    z-index: 1;
+    background-color: var(--backgroud-component);
+    padding-left: 180px;
+    width: 100%;
+}
+
+.navbar li {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: 10px;
+    min-width: 150px;
+    color: var(--blue);
+    font-weight: 500;
+    list-style-type: none;
+}
+
+/* Content que inclui Navbar e Main */
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Menu lateral itens */
+.menu .menu-item {
+    margin-top: 40px;
+}
+
+/* Estilo base para os itens do menu */
+.menu-item {
+    opacity: 0; /* Inicialmente invisível */
+    transform: translateX(-50px); /* Inicialmente deslocado para a esquerda */
+    animation: slideIn 0.5s forwards; /* Aplicando a animação */
+}
+
+/* Definindo o atraso para cada item */
+.menu-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.menu-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.menu-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.menu-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.menu-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.menu-item:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+.menu-item:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
+/* Estilos para Ícones de Validação */
+.validation-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+}
+
+.text-danger {
+    color: var(--danger) !important;
+}
+
+/* Estilos adicionais para Layouts de Formulários */
+.login-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 5px 0px 5px rgba(128, 128, 128, 0.2);
+    background-color: var(--backgroud-component);
+    padding-right: 50px;
+    padding-left: 50px;
+    width: 30%;
+    min-height: 100vh;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.logo img {
+    margin: 2px;
+}
+
+.logo p {
+    font-weight: 500;
+    letter-spacing: 3px;
+}
+
+.login-form {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.login-form p {
+    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.login-form input {
+    margin-bottom: 20px;
+    outline: 0;
+    border-width: 0 0 1px;
+    border-color: var(--font-color);
+    background: transparent;
+    padding: 10px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+/* Indicadores de Validação para Inputs */
+.login-form input.input-success {
+    border-color: var(--success);
+    background: url("../images/done_mini.png") no-repeat right;
+    padding-right: 25px;
+}
+
+.login-form input.input-danger {
+    border-color: var(--danger);
+    background: url("../images/close_mini.png") no-repeat right;
+    padding-right: 25px;
+}
+
+/* Card para conteúdo principal */
+.card {
+    padding: 40px;
+}
+
+.card.add-transaction {
+    width: 60%;
+}
+
+.card.resume {
+    width: 35%;
+}
+
+.card-header {
+    display: flex;
+    align-items: end;
+    background-color: var(--blue);
+    padding: 10px 5%;
+    height: 60px;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.card-body {
+    background-color: var(--backgroud-component);
+    padding: 0px 20px;
+    height: 90%;
+    overflow-y: auto;
+}
+
+.card-body>form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 30px;
+    width: 100%;
+}
+
+.card-body>form>input {
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 7px 3px 3px 3px;
+    background-color: transparent;
+    padding: 5px 10px;
+    min-width: 50%;
+    font-size: 1.2rem;
+}
+
+.card-body>form>textarea {
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 7px 3px 3px 3px;
+    background-color: transparent;
+    padding: 5px 10px;
+    width: 100%;
+    resize: none;
+    font-size: 1.2rem;
+}
+
+.card-body>form>button {
+    align-self: flex-end;
+    margin: 0px;
+    width: 30%;
+    height: 40px;
+}
+
+.timeline {
+    position: relative;
+    margin-left: 20px;
+    padding-top: 40px;
+    padding-left: 20px;
+    border-left: 2px dotted var(--blue);
+}
+
+.transaction {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.bullet {
+    width: 8px;
+    height: 8px;
+    background-color: gray;
+    border-radius: 50%;
+    position: absolute;
+    left: -25px;
+    top: 5px;
+}
+
+.transaction-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para valores */
+.amount {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.amount.negative {
+    color: var(--danger);
+}
+
+.amount.positive {
+    color: var(--success);
+}
+
+.description {
+    font-size: 0.9rem;
+    color: var(--font-color);
+    margin-top: 5px;
+}
+
+.loader {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader > span {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: none;
+    position: relative;
+    background: linear-gradient(0deg, rgba(0, 181, 211, 0.2) 33%, var(--blue) 100%);
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.loader> span::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--backgroud-component);
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px); /* Inicia deslocado para a esquerda */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0); /* Termina na posição normal */
+    }
+}
+
+#app {
+    display: flex;
+}
